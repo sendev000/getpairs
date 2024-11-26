@@ -4,16 +4,14 @@ const consoleTable = require('console.table');
 // Function to fetch all trading pairs and their prices
 async function fetchTradingPairs() {
     try {
-        // Get all currency pairs from the Gate.io API
+        // Get USDT pairs from the Gate.io API
         const response = await axios.get('https://api.gateio.ws/api/v4/futures/usdt/contracts');
         const pairs = response.data;
-        // Filter USDT futures pairs (Assuming that Futures pairs will have the "USDT" suffix)
-        const usdtFuturesPairs = pairs.filter(pair => pair.name.endsWith('USDT'));
 
-        console.log(`Total USDT Futures trading pairs: ${usdtFuturesPairs.length}`);
+        console.log(`Total USDT Futures trading pairs: ${pairs.length}`);
 
         // Select 5 random pairs from the available pairs
-        const randomPairs = getRandomItems(usdtFuturesPairs, 5);
+        const randomPairs = getRandomItems(pairs, 5);
         console.log('Randomly selected pairs:', randomPairs.map(pair => pair.name));
         
         // Fetch prices for the selected random pairs
